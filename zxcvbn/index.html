@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>zxcvbn experiments</title>
+    <style>
+      input {
+          width: 300px;
+      }
+      #password-meter {
+          width: 300px;
+          text-align: right;
+      }
+      #password-meter .weak-password {
+          color: #c81818;
+      }
+      #password-meter .acceptable-password {
+          color: #ffac1d;
+      }
+      #password-meter .good-password {
+          color: #a6c060;
+      }
+      #password-meter .excellent-password {
+          color: #27b30f;
+      }
+      .password-meter-bar {
+          height: 4px;
+          background: #e8e8e8;
+      }
+      .password-meter-bar .weak-password {
+          width: 75px;
+          height: 4px;
+          background: #c81818;
+      }
+      .password-meter-bar .acceptable-password {
+          width: 150px;
+          height: 4px;
+          background: #ffac1d;
+      }
+      .password-meter-bar .good-password {
+          width: 225px;
+          height: 4px;
+          background: #a6c060;
+      }
+      .password-meter-bar .excellent-password {
+          width: 300px;
+          height: 4px;
+          background: #27b30f;
+      }
+    </style>
+  </head>
+
+  <body>
+    <label for="password">Password</label><br>
+    <input id="password" type="password">
+    <div id="password-meter"></div>
+    <input type="submit">
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/zxcvbn.js"></script>
+    <script>
+      $(document).ready(function() {
+          $("#password-meter").append("<div class='password-meter-bar'><div></div></div><div>&nbsp;</div>");
+
+          $("#password").keyup(function() { 
+              var score = zxcvbn($(this).val()).score;
+              var bar_div = $("#password-meter .password-meter-bar div");
+              bar_div.removeClass();
+              var text_div = $("#password-meter > :nth-child(2)");
+              text_div.removeClass();
+   
+              if($(this).val() == "") {
+                  text_div.html("&nbsp;");
+              }
+              else if(score == 0) {
+                  text_div.text("Very weak"); 
+              }
+              else if(score == 1) {
+                  text_div.text("Weak"); 
+                  text_div.addClass("weak-password");
+                  bar_div.addClass("weak-password");
+              }
+              else if(score == 2) {
+                  text_div.text("Acceptable"); 
+                  text_div.addClass("acceptable-password");
+                  bar_div.addClass("acceptable-password");
+              }
+              else if(score == 3) {
+                  text_div.text("Good"); 
+                  text_div.addClass("good-password");
+                  bar_div.addClass("good-password");
+              }
+              else if(score >= 4) {
+                  text_div.text("Excellent!");
+                  text_div.addClass("excellent-password");
+                  bar_div.addClass("excellent-password");
+              }
+          });
+      });
+    </script>
+  </body>
+</html>
