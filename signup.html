@@ -1,0 +1,94 @@
+<!-- Sign up prototype using bootstrap, jquery and jquery-validation -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign up</title>
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="../jquery/plugins/password-with-meter/jquery.password-with-meter.css" rel="stylesheet">
+  <style>
+    span.error-message {
+        color: #b94a48;
+        padding-left: 5px;
+    }
+    /* Password meter same size as input */
+    #password-meter {
+        width: 300px;
+    }
+  </style>
+  <script src="../jquery/plugins/password-with-meter/zxcvbn-async.js"></script>
+</head>
+<body>
+  <div class="container">
+    <form id="form" method="post">
+      <legend>Sign up</legend>
+
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" class="span4">
+
+      <label for="email">Email Address</label>
+      <input id="email" name="email" type="text" class="span4">
+      <span class="help-block">We promise we won't share your email with anyone.</span>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" class="span4">
+      <div id="password-meter"></div>
+
+      <div class="alert">
+        By clicking on "Create an account" below, you are agreeing to the
+        <a href="#">Terms of Service</a> and <a href="#">the Privacy Policy</a>.
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-large btn-primary">Create an account</button>
+        or <a href="">Cancel</a>
+      </div>
+    </form>
+  </div>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="../jquery/plugins/password-with-meter/jquery.password-with-meter.js"></script>
+  <script>
+    $(document).ready(function() {
+        $("#password").passwordWithMeter("#password-meter");
+
+        // Set focus on first input
+        $("input:first").focus();
+
+        // Defaults for form validation
+        $.validator.setDefaults({
+            errorClass: "error-message",
+            errorElement: "span",
+            onfocusout: function(element, event) {
+                if ( !this.checkable(element) ) {
+                    this.element(element);
+                }
+            },
+            onkeyup: function(element, event) {
+                if ( event.which === 9 && this.elementValue(element) === '' ) {
+                    return;
+                } else if ( !this.invalid[element.name] ) {
+                    return;
+                } else if ( element.name in this.submitted || element === this.lastActive ) {
+                    this.element(element);
+                }
+            }
+        });
+
+        // Form validation
+        $("#form").validate({
+            rules: {
+                username: "required",
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                }
+            }
+        });
+    });
+  </script>
+</body>
+</html>
