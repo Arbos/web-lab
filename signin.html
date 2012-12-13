@@ -1,0 +1,48 @@
+<!-- Sign in prototype using bootstrap, jquery and jquery-validation -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign in</title>
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/common.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <form id="form" method="post">
+      <legend>Sign in</legend>
+
+      <label for="username">Username or email</label>
+      <input id="username" name="username" type="text" class="span4">
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" class="span4">
+
+      <br>
+      <label class="checkbox">
+        <input id="remember" type="checkbox">Remember me (for 30 days)
+      </label>
+
+      <button type="submit" class="btn btn-large btn-primary">Sign in</button>
+    </form>
+    <a href="#">Forgot password?</a>
+  </div>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="js/common.js"></script>
+  <script>
+    $(document).ready(function() {
+        // Set focus on first input
+        $("input:first").focus();
+
+        // Form validation
+        $("#form").validate({
+            rules: {
+                username: "required",
+                password: "required"
+            }            
+        });
+    });
+  </script>
+</body>
+</html>
