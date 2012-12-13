@@ -5,11 +5,8 @@
   <title>Sign up</title>
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="jquery/plugins/password-with-meter/jquery.password-with-meter.css" rel="stylesheet">
+  <link href="css/common.css" rel="stylesheet">
   <style>
-    span.error-message {
-        color: #b94a48;
-        padding-left: 5px;
-    }
     /* Password meter same size as input */
     #password-meter {
         width: 300px;
@@ -47,32 +44,13 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="js/jquery.validate.min.js"></script>
   <script src="jquery/plugins/password-with-meter/jquery.password-with-meter.js"></script>
+  <script src="js/common.js"></script>
   <script>
     $(document).ready(function() {
         $("#password").passwordWithMeter("#password-meter");
 
         // Set focus on first input
         $("input:first").focus();
-
-        // Defaults for form validation
-        $.validator.setDefaults({
-            errorClass: "error-message",
-            errorElement: "span",
-            onfocusout: function(element, event) {
-                if ( !this.checkable(element) ) {
-                    this.element(element);
-                }
-            },
-            onkeyup: function(element, event) {
-                if ( event.which === 9 && this.elementValue(element) === '' ) {
-                    return;
-                } else if ( !this.invalid[element.name] ) {
-                    return;
-                } else if ( element.name in this.submitted || element === this.lastActive ) {
-                    this.element(element);
-                }
-            }
-        });
 
         // Form validation
         $("#form").validate({
