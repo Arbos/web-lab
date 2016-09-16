@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Mouse Events</title>
+<style>
+#simple {
+	background-color: green;
+	width: 128px;
+	height: 128px;
+}
+</style>
+
+<script src="jquery.js"></script>
+
+<div id="simple"></div>
+
+<div id="text"></div>
+
+<script>
+$(document).ready(function() {
+	$("#simple").mouseenter(function() {
+		$("#text").html("mouseenter");
+	});
+
+	$("#simple").mouseleave(function() {
+		$("#text").html("mouseleave");
+	});
+
+	$("#simple").mousedown(function() {
+		$("#text").html("mousedown");
+	});
+
+	$("#simple").mouseup(function() {
+		$("#text").html("mouseup");
+	});
+
+	$("#simple").click(function() {
+		$("#text").html("click<br>" + $("#text").html());
+	});
+});
+</script>
